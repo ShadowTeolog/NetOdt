@@ -1,4 +1,4 @@
-﻿using NetOdt.Constants;
+using NetOdt.Constants;
 using System;
 using System.IO;
 using System.Reflection;
@@ -19,7 +19,11 @@ namespace NetOdt.Helper
             var assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             if(assemblyFolder is null)
             {
-                throw new DirectoryNotFoundException($"Assembly directory [{assemblyFolder}] not found");
+                assemblyFolder = Directory.GetCurrentDirectory();
+                if(assemblyFolder is null)
+                {
+                    throw new DirectoryNotFoundException($"Assembly directory [{assemblyFolder}] not found");
+                }
             }
 
             var originalFolder = Path.Combine(assemblyFolder, "Original");
